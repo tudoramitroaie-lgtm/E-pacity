@@ -4,13 +4,11 @@
 
 An offline edge AI system running entirely on a NVIDIA Jetson Orin Nano that makes your room intelligently aware of you. No cloud. All privacy.
 
----
 
 ## Demo Video
 
 > *Add your demo video link here*
 
----
 
 ## What It Does
 
@@ -23,11 +21,9 @@ E-pacity lets you control smart devices in your room through three natural inter
 
 Everything runs locally on the Jetson — no internet connection required, no data sent to any server.
 
----
 
 ## System Architecture
 
-```
 [ Logitech C270 Webcam + Mic ]
               │
               ▼
@@ -56,9 +52,7 @@ Llama 3.2    Ray                 │
          │
          ▼
         Fan
-```
 
----
 
 ## Technology Stack
 
@@ -75,7 +69,6 @@ Llama 3.2    Ray                 │
 
 All AI inference and device control runs locally on the Jetson Orin Nano's GPU. No cloud services are used.
 
----
 
 ## Hardware Requirements
 
@@ -83,7 +76,6 @@ All AI inference and device control runs locally on the Jetson Orin Nano's GPU. 
 - Logitech C270 HD Webcam
 - TP-Link Tapo TP15 Smart Plug (or compatible)
 
----
 
 ## Installation
 
@@ -91,22 +83,18 @@ All AI inference and device control runs locally on the Jetson Orin Nano's GPU. 
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ollama pull llama3.2:1b
-```
 
 ### Step 2 — Install Python dependencies
 ```bash
 sudo pip3 install faster-whisper ultralytics opencv-python pyaudio ollama
 sudo pip3 install scikit-learn numpy tapo python-dotenv
 sudo apt install -y python3-pyaudio portaudio19-dev ffmpeg
-```
 
 ### Step 3 — Set up environment variables
 Create a `.env` file in the project root:
-```
 TAPO_EMAIL=your_tapo_email@gmail.com
 TAPO_PASSWORD=your_tapo_password
 TAPO_PLUG_IP=your_plug_ip_address
-```
 
 To find your plug's IP address, open the Tapo app → tap your device → gear icon → Device Info.
 
@@ -114,18 +102,15 @@ To find your plug's IP address, open the Tapo app → tap your device → gear i
 Record 50 samples of yourself saying "E-pacity":
 ```bash
 python3 record_samples.py
-```
 Then train the classifier:
 ```bash
 python3 train_epacity.py
-```
 
 ### Step 5 — Train your own device detector
 Take photos of your device using the capture tool in NoMachine:
 ```bash
 export DISPLAY=:0
 python3 capture_photos.py
-```
 Upload photos to [Roboflow](https://roboflow.com), label with bounding boxes, export as YOLOv8 format, download and transfer to Jetson, then train:
 ```bash
 python3 -c "
@@ -134,7 +119,6 @@ model = YOLO('yolov8n.pt')
 model.train(data='your_dataset/data.yaml', epochs=30, imgsz=640, device=0)
 print('Done!')
 "
-```
 Update `DEVICE_MODEL` path in `epacity_final.py` to point to your trained model weights.
 
 ### Step 6 — Connect your smart plug
@@ -148,9 +132,7 @@ Update `DEVICE_MODEL` path in `epacity_final.py` to point to your trained model 
 ollama serve &
 export DISPLAY=:0
 python3 epacity_final.py
-```
 
----
 
 ## How It Works
 
@@ -168,13 +150,11 @@ YOLOv8-Pose continuously monitors whether a person is visible in the camera fram
 ### Energy Logger
 Every device state change is recorded with a timestamp and a reason — `manual` (user-initiated via voice or gesture) or `auto` (E-pacity-initiated via presence detection). Only auto-initiated off events are credited as genuine energy savings, since these represent usage that would have otherwise continued unnecessarily. The logger also gracefully handles the smart plug's scheduled offline maintenance window (3-5 AM) to avoid recording inaccurate state data.
 
----
 
 ## Project Name
 
 **E-pacity** combines "E" (electric) with "-pacity" (from capacity) — representing a room's full electric potential, intelligently managed.
 
----
 
 ## Known Limitations
 
@@ -182,7 +162,6 @@ Every device state change is recorded with a timestamp and a reason — `manual`
 - Device detection range is approximately 2 meters. Training with additional photos taken at greater distances would extend this range.
 - The system currently supports one device (fan). Additional devices can be added by collecting training photos and updating the device labels.
 
----
 
 ## Future Improvements
 
@@ -192,11 +171,9 @@ Every device state change is recorded with a timestamp and a reason — `manual`
 - Time-of-day awareness (different device preferences at different times)
 - Mobile app for energy report viewing
 
----
 
 ## File Structure
 
-```
 E-pacity/
 ├── epacity_final.py      # Main system script (voice + gesture + presence)
 ├── epacity_energy.py     # Energy logger
@@ -209,9 +186,7 @@ E-pacity/
 ├── .env.example          # Example environment file
 ├── .gitignore            # Excludes .env from version control
 └── README.md             # This file
-```
 
----
 
 ## Resources
 
