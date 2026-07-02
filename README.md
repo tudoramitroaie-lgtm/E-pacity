@@ -1,4 +1,4 @@
-# E-pacity 🌱
+# E-pacity 
 
 **Your room's full potential, intelligently managed.**
 
