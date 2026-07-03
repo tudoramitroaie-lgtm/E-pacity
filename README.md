@@ -1,5 +1,7 @@
 # E-pacity 
 
+<img width="962" height="596" alt="Screenshot 2026-07-02 144643" src="https://github.com/user-attachments/assets/daa69fef-34b6-4c15-86c2-ba219bd68fd8" />
+
 **Your room's full potential, intelligently managed.**
 
 E-pacity is an intelligent room automation system running entirely on a NVIDIA Jetson Orin Nano. Using a standard webcam and microphone, it lets you control smart devices through voice commands, hand gestures, and automatic presence detection — with no cloud dependency and no external servers involved.
@@ -40,6 +42,9 @@ The same pose model monitors whether anyone is in the frame. If the room appears
 **Energy logger**
 Every device change is recorded with a timestamp and a reason — manual for voice or gesture, auto for presence-triggered changes. Only automatic off-events count as savings. At the end of a session it prints a full report.
 
+<img width="2558" height="1532" alt="Screenshot 2026-06-30 100351" src="https://github.com/user-attachments/assets/13fa57a8-d562-4357-94f5-0dc4583969a3" />
+
+
 ---
 
 ## Devices used
@@ -71,6 +76,9 @@ Every device change is recorded with a timestamp and a reason — manual for voi
 
 Run `curl -fsSL https://ollama.com/install.sh | sh` to install Ollama, then run `ollama pull llama3.2:1b` to download the language model.
 
+<img width="798" height="233" alt="Screenshot 2026-06-29 173938" src="https://github.com/user-attachments/assets/9b8e8652-74f0-45f1-9957-fbe2f8f8d385" />
+
+
 ### 2. Install Python packages
 
 Run the following:
@@ -95,6 +103,8 @@ To find the plug IP: open the Tapo app, tap your device, tap the gear icon, then
 
 Run `python3 record_samples.py` to record 50 samples of yourself saying "E-pacity", then run `python3 train_epacity.py` to train the classifier.
 
+<img width="2558" height="1537" alt="Screenshot 2026-06-29 171851" src="https://github.com/user-attachments/assets/b3d82d24-840d-45c5-bd05-f5c7c808ebe6" />
+
 ### 5. Train the device detector
 
 Open a terminal in NoMachine and run `export DISPLAY=:0` followed by `python3 capture_photos.py` to take photos of your device.
@@ -105,6 +115,8 @@ Upload the photos to [Roboflow](https://roboflow.com), draw bounding boxes aroun
 
 Once training finishes, update the `DEVICE_MODEL` path in `epacity_final.py` to point to the new weights file inside the `runs/detect/` folder.
 
+<img width="2558" height="1535" alt="Screenshot 2026-07-01 095910" src="https://github.com/user-attachments/assets/d6a8a109-2b44-4e87-bd3d-cf7a0c042620" />
+
 ### 6. Run it
 
 Start Ollama in the background with `ollama serve &`, then open NoMachine and run:
@@ -114,6 +126,8 @@ Start Ollama in the background with `ollama serve &`, then open NoMachine and ru
 `python3 epacity_final.py`
 
 Press **Q** in the camera window to stop the session cleanly.
+
+<img width="2558" height="1598" alt="Screenshot 2026-07-01 101809" src="https://github.com/user-attachments/assets/a497f6d8-ed62-4261-bfdc-e9e05f6a006a" />
 
 ---
 
